@@ -71,18 +71,18 @@ start:  mov	ax,data
 	mov	ds,ax 
 	push ds
 	 
-	mov	al,1ch 
-	mov	ah,35h
-	int	21h  
+	;mov	al,1ch 
+;	mov	ah,35h
+;	int	21h  
 	
 
-	mov	dx,offset int1c 
-	mov	ax,seg	int1c 
-	mov	ds,ax 
-	mov	al,1ch 
-	mov	ah,25h
-	int	21h 
-	pop	ds 
+	;mov	dx,offset int1c 
+;	mov	ax,seg	int1c 
+;	mov	ds,ax 
+;	mov	al,1ch 
+;	mov	ah,25h
+;	int	21h 
+;	pop	ds 
 	 
 gameover:	 
 	mov	ah,00h 
@@ -117,7 +117,12 @@ askForStart:
 	mov	currentTime,0h 
 inputLoop: 	
     sti 
-	mov	al,currentTime 
+    mov ah, 00h
+    mov cx, 0000h
+    mov dx, 0000h
+    int 1ah
+    mov al, dl
+	;mov	al,currentTime 
 	cmp	al,currentSpeed 
 	jg time
 	 
@@ -164,7 +169,11 @@ rightPressed:
     call right 
 	jmp	inputLoop 
 time:
-	mov	currentTime,0h 
+	mov	currentTime,0h
+	mov ah, 01h
+	mov cx, 0000h
+	mov dx, 0000h
+	int 1ah 
 	call down 
 	cmp	isTouched,0 
 	je inputLoop 
@@ -177,11 +186,9 @@ exit:
 	mov	ax,data 
 	mov	ds,ax 
 	  
-	mov	al,1ch 
-	mov	ah,25h 
-	int	21h 
-	mov	ax,4c00h 
-	int	21h 
+	mov ah,04Ch
+	mov al,1h
+	int 21h 
  
 int1c proc 
 	sti 
