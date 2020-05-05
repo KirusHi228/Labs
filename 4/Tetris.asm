@@ -71,19 +71,6 @@ start:  mov	ax,data
 	mov	ds,ax 
 	push ds
 	 
-	;mov	al,1ch 
-;	mov	ah,35h
-;	int	21h  
-	
-
-	;mov	dx,offset int1c 
-;	mov	ax,seg	int1c 
-;	mov	ds,ax 
-;	mov	al,1ch 
-;	mov	ah,25h
-;	int	21h 
-;	pop	ds 
-	 
 gameover:	 
 	mov	ah,00h 
 	mov	al,03h 
@@ -121,8 +108,7 @@ inputLoop:
     mov cx, 0000h
     mov dx, 0000h
     int 1ah
-    mov al, dl
-	;mov	al,currentTime 
+    mov al, dl 
 	cmp	al,currentSpeed 
 	jg time
 	 
